@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row justify-content-between">
+    <div class="row">
+    <div class="col-md-8">
+      <div *ngIf="!authService.userLoggedIn.getValue()">
+        <div style="background: lavender" class="jumbotron">
+          <h1 class="display-4">Welcome to the learning portal</h1>
+          <p class="lead">Here you can enhance your knowledge in the field of interest to you, learn a lot for yourself
+            from
+            a completely unknown sphere or share your knowledge with others.</p>
+          <hr class="my-4">
+          <p>So let's start as soon as possible!</p>
+          <p class="lead">
+            <a class="btn btn-outline-secondary btn-lg" routerLink="/catalog" role="button">Catalog</a>
+            <a class="btn btn-outline-secondary btn-lg" routerLink="/sign-in" role="button">Create course</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div *ngIf="!authService.userLoggedIn.getValue()">
+        <app-sign-up>
+        </app-sign-up>
+      </div>
+    </div>
+
+    <!--<div class="col-md-5">
+    <div *ngIf="authService.userLoggedIn.getValue()">
+        <img src="{{img1}}">
+      </div>
+      </div>-->
+  </div>
+</div>
+</div>

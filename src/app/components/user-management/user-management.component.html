@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col-md">
+    <div class="row">
+      <div class="col-md-9">
+        <h6 class="border-bottom border-gray pb-2 mb-0">User management</h6>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <select class="form-control" ngModel (ngModelChange)="mySelectHandler($event)" [(ngModel)]="selectedOption">
+            <option *ngFor="let value of options" [ngValue]="value">{{value}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-1">
+        <button type="button" class="btn btn-default btn-sm" (click)="onSortClick()">
+          <i class="fas fa-sort"></i>
+        </button>
+      </div>
+    </div>
+    <div *ngIf="errMsg" class="alert alert-secondary">{{errMsg}}</div>
+    <ul class="list-group">
+        <li class="list-group-item" *ngFor="let user of users">
+          <div class="row">
+            <div class="col-md-1">
+              <p></p>
+              <img [src]="'data:image/jpeg;base64,'+ user.image" width="60"  *ngIf="user.image">
+              <img src="https://heroes.profi-forex.org/uploads/_pages/381/marcenuk.jpg" height="80px" *ngIf="!user.image" alt=""/>
+            </div>
+            <div class="col-md">
+              <div class="media text-muted pt-3">
+                <p class="media-body pb-3 mb-0 small lh-125 ">
+                  <strong class="d-block text-gray-dark">{{user.name}}</strong>
+                  {{user.email}}
+                <div *ngIf="isAdmin(user.roles) else elseBlock;">
+                  <strong class="d-block">Admin</strong>
+                  <button class="btn btn-outline-secondary btn-sm" role="button" (click)="onDowngradeClick(user.id)">Downgrade to user</button>
+
+                </div>
+                <ng-template #elseBlock>
+                  <div>
+                    <strong class="d-block">User</strong>
+                    <button class="btn btn-outline-secondary btn-sm" role="button" (click)="onPromoteClick(user.id)">Promote to admin</button>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+<div class="container " align="center" style="margin-top: 20px">
+  <div class="col -lg-12" align="center">
+    <nav aria-label="..." style="text-align: center">
+      <ul class="pagination justify-content-center">
+        <li *ngFor="let page of ' '.repeat(userPage.totalPages).split(''), let i = index " (click)="onPageSelect(i)"
+            [class.active]="i === selectedPage" class="page-item"><a class="page-link">{{i + 1}}</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>

@@ -1,0 +1,54 @@
+<div class="card">
+  <form>
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="row">
+        <div class="col-md">
+        <input type="text" #name='ngModel' required class="form-control" [(ngModel)]="this.currentPage.name" placeholder="Page name" name="name">
+        </div>
+<!--        <div class="col-md-1">-->
+        <small [hidden]="name.valid || name.untouched" class="text-danger">
+          Required
+        </small>
+<!--        </div>-->
+        </div>
+        <label *ngIf="!currentPage.id">Add before
+          <select [(ngModel)]="numToInsert" class="form-control form-control-sm" name="select">
+            <option *ngFor="let page of pages" [ngValue]="page.number">{{page.name}}</option>
+          </select>
+        </label>
+      </div>
+      <div class="col-md-3">
+        <div class="d-flex flex-row-reverse">
+<!--          <a class="btn btn-primary btn-sm" role="button" (click)="onBaskToLessonsClick()">Back to lessons</a>-->
+<!--          <a class="btn btn-success btn-sm" role="button" (click)="onAddPageClick()">Add page</a>-->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="type=='text' || type=='code'" class="card-body">
+    <small [hidden]="content.valid || content.untouched" class="text-danger">
+      Required
+    </small>
+    <blockquote class="blockquote mb-0">
+      <textarea #content='ngModel' required class="form-control" [(ngModel)]="this.currentPage.content" placeholder="Page content" rows="8" name="content"></textarea>
+    </blockquote>
+    <button [disabled]="name.invalid || content.invalid" type="submit" class="btn btn-outline-secondary" *ngIf="!page_id" (click)="createPage()" >Create page</button>
+    <button [disabled]="name.invalid || content.invalid" type="submit" class="btn btn-outline-secondary" *ngIf="page_id" (click)="updatePage()">Save changes</button>
+  </div>
+
+  <div *ngIf="type=='image'" class="card-body">
+    <blockquote class="blockquote mb-0">
+      <img [src]="imgURL" height="200" *ngIf="imgURL">
+      <input type="file" class="btn btn-outline-secondary btn-sm" name="file" (change)="onFileChanged($event)"/>
+    </blockquote>
+    <button [disabled]="name.invalid || !imgURL" type="submit" class="btn btn-outline-secondary" *ngIf="!page_id" (click)="createPage()" >Create page</button>
+    <button [disabled]="name.invalid || !imgURL" type="submit" class="btn btn-outline-secondary" *ngIf="page_id" (click)="updatePage()">Save changes</button>
+  </div>
+</form>
+</div>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>

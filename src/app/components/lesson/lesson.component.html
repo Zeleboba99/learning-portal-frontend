@@ -1,0 +1,68 @@
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<div class="card">
+
+  <div class="card-header">
+
+    <div class="row">
+      <div class="col-md">
+        <h6>Lesson: {{lesson.name}}</h6>
+      </div>
+      <div class="col-md">
+
+        <div class="d-flex flex-row-reverse">
+          <div *ngIf="isAuthor">
+          <button type="button" class="btn btn-outline-secondary btn-sm" role="button" (click)="onPagesClick()">
+            <i class="fas fa-eye-slash"></i>
+          </button>
+          </div>
+          <button class="btn btn-outline-secondary btn-sm" role="button" (click)="onBackToLessonsClick()">Back to lessons</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <blockquote class="blockquote mb-0">
+      <div *ngFor="let page of pages">
+        <div *ngIf="page.pageType.typeName=='image'">
+          <img [src]="'data:image/jpeg;base64,'+ page.image">
+<!--          <h6>{{page.name}}</h6>-->
+        </div>
+        <div class="col-md" *ngIf="page.pageType.typeName=='text'"
+             style="word-wrap: break-word; display: inline-block;">
+<!--          <h6>{{page.name}}</h6>-->
+          <pre
+            style="font-family: Geneva, Arial, Helvetica, sans-serif; font-size: medium; word-wrap: break-word;">{{page.content}}</pre>
+        </div>
+        <div *ngIf="page.pageType.typeName=='code'">
+          <pre class="language-markup" style="font-size: small"><code [innerHtml]="page.content"
+                                                                      class="language-java">{{page.content}}</code></pre>
+<!--          <h6>{{page.name}}</h6>-->
+        </div>
+        <p></p>
+      </div>
+    </blockquote>
+  </div>
+  <div class="row">
+    <div class="col-md">
+      <div *ngIf="previousLesson">
+        <button class="btn btn-block btn-outline-secondary btn-sm" role="button" (click)="onPreviousLessonClick()">
+          <i class="fas fa-arrow-left"></i>
+          {{previousLesson.number}}. {{previousLesson.name}}
+        </button>
+      </div>
+    </div>
+    <div class="col-md">
+      <div *ngIf="nextLesson">
+        <button class="btn btn-block btn-outline-secondary btn-sm" role="button" (click)="onNextLessonClick()">
+          {{nextLesson.number}}. {{nextLesson.name}}
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

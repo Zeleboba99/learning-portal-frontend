@@ -1,0 +1,35 @@
+<div class="col-md-8">
+  <h2>Add new course</h2>
+  <form>
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <div class="row">
+        <div class="col-md-10">
+      <input [(ngModel)]="course.name" name="name" #name='ngModel' required class="form-control" id="name">
+        </div>
+        <small [hidden]="name.valid || name.untouched" class="text-danger">Required</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="subject">Subject:</label>
+      <div class="row">
+        <div class="col-md-10">
+      <input  [(ngModel)]="course.subject.name"  name="subject" required #subject='ngModel' class="form-control" id="subject">
+        </div>
+        <small [hidden]="subject.valid || subject.untouched" class="text-danger">Required</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-10">
+      <label for="description">Description:</label>
+      <textarea type="name" [(ngModel)]="course.description"  name="description" class="form-control" id="description"></textarea>
+        </div>
+      </div>
+    </div>
+    <button [disabled]="subject.invalid || name.invalid" class="btn btn-outline-secondary"  (click)="createCourse()" >Add</button>
+  </form>
+  <p></p>
+  <div *ngIf="addMessage" class="alert alert-success">{{addMessage}}</div>
+</div>
+

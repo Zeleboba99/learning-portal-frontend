@@ -1,0 +1,98 @@
+<div class="container emp-profile">
+  <form method="post">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="profile-img">
+          <img [src]="'data:image/jpeg;base64,'+ currentUser.image" width="280"  *ngIf="currentUser.image">
+          <img src="https://heroes.profi-forex.org/uploads/_pages/381/marcenuk.jpg" height="300px" *ngIf="!currentUser.image" alt=""/>
+          <input type="file" class="btn btn-outline-secondary btn-sm" name="file" (change)="onFileChanged($event)"/>
+        </div>
+        <input type="button" class="btn btn-outline-secondary" (click)="onChangeImage()" value="Change image">
+        <img [src]="imgURL" height="200" *ngIf="imgURL">
+      </div>
+
+      <div class="col-md-6">
+        <div class="profile-head">
+          <h5> {{currentUser.name}}</h5>
+          <h6></h6>
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Statistic</a>
+            </li>
+          </ul>
+        </div>
+        <p></p>
+        <div class="tab-content profile-tab" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="row">
+              <div class="col-md-6">
+                <label>Username</label>
+              </div>
+              <div class="col-md-6">
+                <p>{{currentUser.name}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Email</label>
+              </div>
+              <div class="col-md-6">
+                <p>{{currentUser.email}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Status</label>
+              </div>
+              <div class="col-md-6">
+                <p>{{currentUser.status}}</p>
+              </div>
+            </div>
+<!--            <div class="row">-->
+<!--              <div class="col-md-6">-->
+<!--                <label>About</label>-->
+<!--              </div>-->
+<!--              <div class="col-md-6">-->
+<!--                <p>{{currentUser.about}}</p>-->
+<!--              </div>-->
+<!--            </div>-->
+          </div>
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+<!--            <div class="row">-->
+<!--              <div class="col-md-6">-->
+<!--                <label>Num completed courses</label>-->
+<!--              </div>-->
+<!--              <div class="col-md-6">-->
+<!--                <p></p>-->
+<!--              </div>-->
+<!--            </div>-->
+            <div class="row">
+              <div class="col-md-6">
+                <label>Number created courses</label>
+              </div>
+              <div class="col-md-6">
+                <p>{{numOfCreatedCourses}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--      <div class="col-md-2">-->
+<!--        <input type="button" class="btn btn-secondary btn-sm" name="btnAddMore" value="Edit Profile"/>-->
+<!--      </div>-->
+    </div>
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+
+      </div>
+    </div>
+  </form>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>

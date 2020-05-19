@@ -1,0 +1,43 @@
+<div class="jumbotron jumbotron-fluid" *ngIf="lastResult>=course.threshold; else elseBlock" style="background: lightgreen">
+  <div class="container">
+    <h3 class="text-center">Congratulation!</h3>
+    <p class="lead text-center">Your result: {{lastResult}}% that more than test threshold: {{course.threshold}}%</p>
+  </div>
+  <p class="text-center">
+    <button class="btn btn-outline-secondary" role="button" (click)="onBaskToLessonsClick()">Back to lessons</button>
+    <button class="btn btn-outline-secondary"  role="button" (click)="onGoToTheCertificates()">Go to the certificates</button>
+  </p>
+</div>
+<ng-template #elseBlock>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h3 class="text-center">Sorry...</h3>
+    <p class="lead text-center">Your result: {{lastResult}}% but test threshold: {{course.threshold}}%</p>
+  </div>
+  <p class="text-center">
+    <button class="btn btn-outline-secondary" role="button" (click)="onBaskToLessonsClick()">Back to lessons</button>
+    <button class="btn btn-outline-secondary" role="button" (click)="onTryAgainClick()">Try again</button>
+  </p>
+</div>
+</ng-template>
+<h6 class="text-center">Test results</h6>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">№</th>
+    <th scope="col">Passed at</th>
+    <th scope="col">Result</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let result of testResults">
+    <th scope="row">{{result.number}}</th>
+    <td>{{result.passedAt | date:'short'}}</td>
+    <td>{{result.rightAnswersNum*100/result.answersNum}}%</td>
+  </tr>
+  </tbody>
+</table>
+
+
+
+

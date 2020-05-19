@@ -1,0 +1,95 @@
+<h6 class="ui header">Edit final test</h6>
+<p></p>
+<div class="row">
+  <div class="col-md-1">
+  <label>Threshold</label>
+  </div>
+  <div class="col-md">
+    <button style="border: none; background: white" data-toggle="tooltip" data-placement="top" title="The test will be passed successful if the percentage of correct answers is greater than or equal to the specified value (value should be >=50% and <=100%)">
+      <i class="fas fa-info-circle"></i>
+    </button>
+  </div>
+</div>
+<input type="number" [(ngModel)]="threshold" placeholder="Input threshold" required/>  %
+<p></p>
+<form [formGroup]="survey" novalidate>
+    <div formArrayName="sections">
+      <div class="section-container" *ngFor="let section of getSections(survey); let i = index">
+        <div class="ui raised segments" [formGroupName]="i">
+
+          <div class="question-container" formArrayName="questions">
+            <div [formGroupName]="j" *ngFor="let question of getQuestions(section); let j = index">
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-body">
+                    <div class="row">
+                    {{j+1}}. Question
+                    <button style="border: none; background: none" data-toggle="tooltip" data-placement="top" title="For choose right answer check the box">
+                    <i class="fas fa-info-circle"></i>
+                  </button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" (click)="add(i,j)">
+                      Add answer
+                    </button>
+                    </div>
+                    <input type="hidden" class="form-control" formControlName="questionId" [value]="j+1">
+<!--                    <input type="text" value="{{j+1}}">-->
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" placeholder="Input question"
+                                 formControlName="questionTitle" required>
+                        </div>
+                        <div class="col-md-3">
+                          <small *ngIf="this.survey.controls['sections'].controls[0].controls.questions.controls[j].controls.questionTitle.invalid && this.survey.controls['sections'].controls[0].controls.questions.controls[j].controls.questionTitle.touched"
+                            class="text-danger">
+                            Required
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                    <p></p>
+                    <div formArrayName="options">
+                      <div [formGroupName]="k" *ngFor="let option of getOptions(question); let k=index">
+                        <div class="row">
+                          <div class="col-md-0.5">
+<!--                            <input type="text" value="{{k}}">-->
+                            <input type="radio" name="{{j}}" [value]="k" (change)="onChange(j, k)" >
+                          </div>
+                          <div class="col-md-8">
+                          <input type="text" class="form-control" placeholder="Input answer" formControlName="optionTitle" required>
+                          </div>
+                          <div class="col-md-0.5">
+                          <button type="button" class="btn btn-outline-secondary btn-sm" *ngIf="getOptions(question).length > 2" (click)="removeOption(i,j,k)">
+                            <i class="fas fa-times"></i>
+                          </button>
+                          </div>
+                          <small class="text-danger"
+                                 *ngIf="this.survey.controls['sections'].controls[0].controls.questions.controls[j].controls.options.controls[k].controls.optionTitle.invalid && this.survey.controls['sections'].controls[0].controls.questions.controls[j].controls.options.controls[k].controls.optionTitle.touched">
+                            Required
+                          </small>
+                        </div>
+                        <p></p>
+                      </div>
+                    </div>
+                    <br>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" *ngIf="getQuestions(section).length > 1" (click)="removeQuestion(i, j)">Remove Question</button>
+                  </div>
+                  <br>
+                </div>
+              </div>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button [disabled]="survey.invalid || threshold.invalid || threshold<50 || threshold>100 "  class="btn btn-outline-secondary" (click)="onSubmit(survey)">Save final test</button>
+      <button type="button" class="btn btn-outline-secondary btn-sm" (click)="addQuestion(0)">Add Question...</button>
+      <div class="alert alert-danger" *ngIf="error">
+        {{error}}
+      </div>
+    </div>
+  </form>
+<br>
+<p>
+</p>
+

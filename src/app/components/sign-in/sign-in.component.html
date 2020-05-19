@@ -1,0 +1,47 @@
+<div class="container mx-auto">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <p></p>
+      <div class="card">
+        <article class="card-body">
+          <h4 class="card-title mb-4 mt-1" style="text-align: center">Sign in</h4>
+          <div *ngIf="serverError" class="alert alert-danger">{{serverError}}</div>
+          <p>
+            <a
+              href="https://portal-database.herokuapp.com/oauth2/authorize/facebook?redirect_uri=https://portal-angular.herokuapp.com/oauth2/redirect"
+              class="btn btn-block btn-outline-primary">   Login via facebook</a>
+            <a
+              href="https://portal-database.herokuapp.com/oauth2/authorize/github?redirect_uri=https://portal-angular.herokuapp.com/oauth2/redirect"
+              class="btn btn-block btn-outline-primary">   Login via github</a>
+            <a
+              href="https://portal-database.herokuapp.com/oauth2/authorize/google?redirect_uri=https://portal-angular.herokuapp.com/oauth2/redirect"
+              class="btn btn-block btn-outline-primary" (click)="loginWithGoogle()">   Login via google</a>
+          </p>
+          <hr>
+          <form>
+            <div class="form-group">
+              <input name="email" class="form-control" placeholder="Email" type="email" [(ngModel)]="signInData.email"
+                     #email="ngModel" required pattern="[a-zA-Z0-9_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}"/>
+              <div [hidden]="email.valid || email.untouched" class="alert alert-danger">
+                Please check your email. Example: test@gmail.com
+              </div>
+            </div>
+            <div class="form-group">
+              <input name="password" class="form-control" placeholder="******" type="password"
+                     [(ngModel)]="signInData.password" #password="ngModel" required/>
+              <div [hidden]="password.valid || password.untouched" class="alert alert-danger">
+                Please, enter your password.
+              </div>
+            </div>
+            <button [disabled]="email.invalid || password.invalid" class="btn btn-primary btn-block"
+                    style="align-self: center" (click)="login()" type="submit">Sign in
+            </button>
+          </form>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>

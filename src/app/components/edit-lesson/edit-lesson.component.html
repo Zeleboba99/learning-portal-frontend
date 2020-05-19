@@ -1,0 +1,45 @@
+<!--<div class="d-flex justify-content-center w-100">-->
+  <div class="col-md-8">
+  <h2>Edit lesson</h2>
+  <form>
+    <input type="hidden" [(ngModel)]="course_id" name="course_id">
+    <input type="hidden" [(ngModel)]="lesson.id" name="id">
+<!--    <div class="form-group">-->
+<!--      <label for="number">Number</label>-->
+<!--      <input [(ngModel)]="lesson.number" name="number"  class="form-control" id="number">-->
+<!--    </div>-->
+    <label *ngIf="!lesson.id">Add before
+      <select [(ngModel)]="numToInsert" class="form-control form-control-sm" name="select">
+        <option *ngFor="let les of lessons" [ngValue]="les.number">{{les.name}}</option>
+      </select>
+    </label>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <div class="row">
+        <div class="col-md-10">
+      <input [(ngModel)]="lesson.name" name="name" #name="ngModel"  class="form-control" id="name" required>
+        </div>
+      <small [hidden]="name.valid || name.untouched" class="text-danger">
+        Required
+      </small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <div class="row">
+        <div class="col-md-10">
+      <input [(ngModel)]="lesson.description" #description="ngModel" name="description" class="form-control" id="description" required>
+        </div>
+      <small [hidden]="description.valid || description.untouched" class="text-danger">
+        Required
+      </small>
+      </div>
+    </div>
+    <button [disabled]="name.invalid || description.invalid" type="submit" class="btn btn-outline-secondary" *ngIf="!lesson.id" (click)="createLesson()" >Create</button>
+    <button [disabled]="name.invalid || description.invalid" type="submit" class="btn btn-outline-secondary" *ngIf="lesson.id" (click)="updateLesson()" >Save changes</button>
+  </form>
+  </div>
+<!--</div>-->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>

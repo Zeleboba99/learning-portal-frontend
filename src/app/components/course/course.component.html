@@ -1,0 +1,47 @@
+<div style="background: lavender; height:250px"  class="jumbotron">
+  <h2>{{course.name}}</h2>
+  <h3>Author: {{author}}</h3>
+  <hr class="my-4">
+  <div *ngIf="isUserAlreadyJoined; else elseBlock">
+    <button class="btn btn-outline-secondary " (click)="onGoToTheCourseClick()" role="button">Go to the course</button>
+  </div>
+  <ng-template #elseBlock>
+    <button class="btn btn-outline-secondary"  (click)="onJoinToCourseClick()"  role="button">Join</button>
+  </ng-template>
+</div>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" active id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="content-tab" data-toggle="tab" href="#content" role="tab" aria-controls="content" aria-selected="true">Content</a>
+  </li>
+</ul>
+
+<div class="row">
+  <div class="col-md">
+    <div class="tab-content description-tab" id="myTabContent">
+      <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+        <p></p>
+        <div class="row">
+          <div class="col-md">
+            <p>{{course.description}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="content" role="tabpanel" aria-labelledby="content-tab">
+        <div class="row">
+          <div class="col-md">
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let lesson of lessons">{{lesson.name}}</li>
+          </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>
